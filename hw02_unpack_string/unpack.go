@@ -7,9 +7,7 @@ import (
 	"unicode/utf8"
 )
 
-var (
-	ErrInvalidString = fmt.Errorf("invalid string")
-)
+var ErrInvalidString = fmt.Errorf("invalid string")
 
 func Unpack(str string) (string, error) {
 	if str == "" {
@@ -48,8 +46,8 @@ func Unpack(str string) (string, error) {
 			for i := 0; i < count; i++ {
 				resBuf = utf8.AppendRune(resBuf, prevRune)
 			}
-		} else {
-			if !unicode.IsDigit(prevRune) {
+		} else if !unicode.IsDigit(prevRune) {
+			{
 				resBuf = utf8.AppendRune(resBuf, prevRune)
 			}
 		}
