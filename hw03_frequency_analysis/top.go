@@ -29,7 +29,8 @@ func Top10(str string) []string {
 		}
 	}
 
-	values := mapToSliceString(frequencyMap)
+	values := make([]mapToSlice, 0, len(frequencyMap))
+	values = append(values, mapToSliceString(frequencyMap)...)
 	sort.Slice(values, func(i, j int) bool { // sort by frequency
 		return values[i].Count > values[j].Count
 	})
@@ -46,7 +47,7 @@ type mapToSlice struct {
 	Count int64
 }
 
-func getFirstNKeys(values []mapToSlice, n int)[]string {
+func getFirstNKeys(values []mapToSlice, n int) []string {
 	var result []string
 	for i := 0; i < n; i++ {
 		result = append(result, values[i].Key)
@@ -54,20 +55,20 @@ func getFirstNKeys(values []mapToSlice, n int)[]string {
 	return result
 }
 
-func mapToSliceString(input map[string]int64)[]mapToSlice {
+func mapToSliceString(input map[string]int64) []mapToSlice {
 	var values []mapToSlice
 	for key, value := range input {
 		values = append(values, mapToSlice{
-			Key: key,
+			Key:   key,
 			Count: value,
 		})
 	}
 	return values
 }
 
-func splitToSubstrings(values []mapToSlice)[][]mapToSlice {
+func splitToSubstrings(values []mapToSlice) [][]mapToSlice {
 	var (
-		prevCount 		 = values[0].Count
+		prevCount        = values[0].Count
 		substringIndex   = 0
 		substringsToSort = make([][]mapToSlice, 0)
 	)
