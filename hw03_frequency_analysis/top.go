@@ -1,3 +1,4 @@
+//nolint:gofumpt
 package hw03frequencyanalysis
 
 import (
@@ -29,8 +30,7 @@ func Top10(str string) []string {
 		}
 	}
 
-	values := make([]mapToSlice, 0, len(frequencyMap))
-	values = append(values, mapToSliceString(frequencyMap)...)
+	values := mapToSliceString(frequencyMap)
 	sort.Slice(values, func(i, j int) bool { // sort by frequency
 		return values[i].Count > values[j].Count
 	})
@@ -56,7 +56,7 @@ func getFirstNKeys(values []mapToSlice, n int) []string {
 }
 
 func mapToSliceString(input map[string]int64) []mapToSlice {
-	var values []mapToSlice
+	values := make([]mapToSlice, 0, len(input))
 	for key, value := range input {
 		values = append(values, mapToSlice{
 			Key:   key,
